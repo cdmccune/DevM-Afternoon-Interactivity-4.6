@@ -1,10 +1,5 @@
 let message = document.querySelector(`#message`)
 
-const revealMessage = () => {
-    message.classList.remove('hide')
-    setTimeout(()=>{message.classList.add('hide')},1000)
-}
-
 const addMovie = event => {
     event.preventDefault()
     let inputField = document.querySelector(`input`).value
@@ -24,12 +19,19 @@ document.querySelector(`form`).addEventListener(`submit`, addMovie)
 
 const deleteMovie = event => {
     event.target.parentNode.remove()
-    message.textContent = `Movie Deleted!`
+    // message.textContent = `${event.target.parentNode.children[0].textContent} Deleted!`
+    message.textContent = `${event.target.previousElementSibling.textContent} Deleted!`
+    
     revealMessage()
 }
 
 const crossOffMovie = event => {
     event.target.classList.toggle("checked")
-    message.textContent = event.target.classList.contains('checked') ? `Movie Watched!` : `Movie Added Back!`
+    message.textContent = event.target.classList.contains('checked') ? `${event.target.textContent} Watched!` : `${event.target.textContent} Added Back!`
     revealMessage()
+}
+
+const revealMessage = () => {
+    message.classList.remove('hide')
+    setTimeout(()=>{message.classList.add('hide')},1000)
 }
